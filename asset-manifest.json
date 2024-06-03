@@ -1,0 +1,10 @@
+{
+  "files": {
+    "main.js": "https://TwoSSome.github.io/poompoom-web/static/js/main.b821de3b.js",
+    "index.html": "https://TwoSSome.github.io/poompoom-web/index.html",
+    "main.b821de3b.js.map": "https://TwoSSome.github.io/poompoom-web/static/js/main.b821de3b.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.b821de3b.js"
+  ]
+}

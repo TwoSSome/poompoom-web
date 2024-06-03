@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/poompoom-web/static/js/main.b1642e07.js",
+    "main.js": "/poompoom-web/static/js/main.1d7c6bde.js",
     "index.html": "/poompoom-web/index.html",
-    "main.b1642e07.js.map": "/poompoom-web/static/js/main.b1642e07.js.map"
+    "main.1d7c6bde.js.map": "/poompoom-web/static/js/main.1d7c6bde.js.map"
   },
   "entrypoints": [
-    "static/js/main.b1642e07.js"
+    "static/js/main.1d7c6bde.js"
   ]
 }

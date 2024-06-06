@@ -77,10 +77,7 @@
     "rimraf": "^5.0.7"
   },
   "main": "index.js",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/TwoSSome/poompoom-web.git"
-  },
+  "repository": "https://github.com/TwoSSome/poompoom-web.git",
   "author": "dekoms <dekoms@naver.com>",
   "license": "MIT"
 }

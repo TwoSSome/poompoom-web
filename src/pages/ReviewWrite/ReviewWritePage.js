@@ -1,148 +1,150 @@
 import axios from 'axios';
-import { useState } from 'react';
+import React, { useState } from 'react';
+// import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 export default function ReviewWritePage() {
-  const [giftType, setGiftType] = useState('RECEIVED');
-  const [senderReceiver, setSenderReceiver] = useState('');
-  const [category, setCategory] = useState('');
-  const [content, setContent] = useState('');
-  const [images, setImages] = useState(null);
-  const [price, setPrice] = useState('');
-  const [rating, setRating] = useState(1);
-  const [source, setSource] = useState('');
+  const [review, setReview] = useState({
+    body: '',
+    price: 0,
+    whereBuy: '',
+    starPoint: 0,
+    category: '',
+    reviewType: '',
+  });
 
-  const accessToken = localStorage.getItem('AccessToken');
-  const ACCESS_TOKEN = accessToken; // 여기에 본인의 ACCESS_TOKEN을 넣어주세요
-
-  const handleSubmit = (e) => {
+  // const navigate = useNavigate();
+  const [photos, setPhotos] = useState([]);
+  // const [reviewId, setReviewId] = useState();
+  const handleSubmitReview = async (e) => {
     e.preventDefault();
-    // 리뷰 작성 내용을 서버에 전송하는 로직
-    // FormData 객체를 생성하여 데이터를 담기
-    const formData = new FormData();
-    formData.append('body', content);
-    formData.append('price', price);
-    formData.append('whereBuy', source);
-    formData.append('starPoint', rating);
-    formData.append('category', category);
-    formData.append('reviewType', giftType);
-    images.forEach((image, index) => {
-      formData.append(`photos[${index}]`, image);
-    });
 
-    axios
-      .post('/review/create', formData, {
+    const formData = new FormData();
+    const bodyJson = JSON.stringify({
+      body: review.body,
+      price: review.price,
+      whereBuy: review.whereBuy,
+      starPoint: review.starPoint,
+      category: review.category,
+      reviewType: review.reviewType,
+    });
+    formData.append('body', new Blob([bodyJson], { type: 'application/json' }));
+    photos.forEach((photo) => {
+      formData.append('photos', photo);
+    });
+    const AccessToken = localStorage.getItem('AccessToken');
+
+    try {
+      const response = await axios.post('/review/create', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
-          access: `${ACCESS_TOKEN}`,
+          access: `${AccessToken}`,
         },
-      })
-      .then((response) => {
-        console.log('Success:', response.data);
-        // 성공적으로 제출된 후 추가 작업 (예: 페이지 이동 또는 알림 표시)
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-        // 에러 처리
       });
+
+      if (response.status === 200) {
+        console.log('Review created successfully', response.data);
+        // setReviewId(response.data.createdId);
+        // navigate(`/review/${reviewId}`);
+      } else {
+        console.error('Failed to create review', response.data);
+      }
+    } catch (error) {
+      if (error.response) {
+        console.error('Error@@:', error.response.data);
+
+        console.log('Response status:', error.response.status);
+        console.log('Response headers:', error.response.headers);
+      } else {
+        console.error('Error!!:', error.message);
+      }
+    }
   };
 
-  const handleImageChange = (e) => {
-    const files = Array.from(e.target.files);
-    setImages(files);
+  const handleReviewChange = (e) => {
+    const { name, value } = e.target;
+    setReview({
+      ...review,
+      [name]: value,
+    });
+  };
+
+  const handlePhotoChange = (e) => {
+    setPhotos([...e.target.files]);
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <Label htmlFor="received">
-        <input
-          id="received"
-          type="radio"
-          value="received"
-          checked={giftType === 'RECEIVED'}
-          onChange={() => setGiftType('RECEIVED')}
-        />
-        받은 선물
-      </Label>
-      <Label htmlFor="given">
-        <input
-          id="given"
-          type="radio"
-          value="GIVEN"
-          checked={giftType === 'GIVEN'}
-          onChange={() => setGiftType('GIVEN')}
-        />
-        보낸 선물
-      </Label>
-      <br />
-      <Label htmlFor="senderReceiver">
-        누가 누구한테 보내는지:
-        <Input
-          id="senderReceiver"
-          type="text"
-          value={senderReceiver}
-          onChange={(e) => setSenderReceiver(e.target.value)}
-        />
-      </Label>
-      <br />
-      <Label htmlFor="category">
-        카테고리:
-        <Select id="category" value={category} onChange={(e) => setCategory(e.target.value)}>
-          <option value="">카테고리 선택</option>
+    <Form onSubmit={handleSubmitReview}>
+      <Section>
+        <Label>리뷰 작성</Label>
+        <TextArea name="body" value={review.body} onChange={handleReviewChange} />
+      </Section>
+      <Section>
+        <Label>가격</Label>
+        <Input type="number" name="price" value={review.price} onChange={handleReviewChange} />
+      </Section>
+      <Section>
+        <Label>누가 누구한테 보내는지</Label>
+        <Input type="text" name="whereBuy" value={review.whereBuy} onChange={handleReviewChange} />
+      </Section>
+      <Section>
+        <Label>별점</Label>
+        <Input type="number" name="starPoint" value={review.starPoint} onChange={handleReviewChange} />
+      </Section>
+
+      <Section>
+        <Label>리뷰 타입</Label>
+        <select name="reviewType" value={review.reviewType} onChange={handleReviewChange}>
+          <option value="">Select Review Type</option>
+          <option value="GIVEN">GIVEN</option>
+          <option value="RECEIVED">RECEIVED</option>
+        </select>
+      </Section>
+
+      <Section>
+        <Label>카테고리</Label>
+        <select name="category" value={review.category} onChange={handleReviewChange}>
+          <option value="">Select Category</option>
           <option value="100일">100일</option>
           <option value="n주년">n주년</option>
           <option value="생일">생일</option>
           <option value="크리스마스">크리스마스</option>
-          <option value="OO데이">OO데이</option>
           <option value="가벼운 선물">가벼운 선물</option>
           <option value="사과의 선물">사과의 선물</option>
           <option value="청혼">청혼</option>
-        </Select>
-      </Label>
-      <br />
-      <Label htmlFor="content">
-        본문 내용:
-        <Textarea id="content" value={content} onChange={(e) => setContent(e.target.value)} />
-      </Label>
-      <br />
-      <Label htmlFor="image">
-        사진:
-        <Input id="image" type="file" multiple onChange={handleImageChange} />
-      </Label>
-      <br />
-      <Label htmlFor="price">
-        선물 가격:
-        <Input id="price" type="text" value={price} onChange={(e) => setPrice(e.target.value)} />
-      </Label>
-      <br />
-      <Label htmlFor="rating">
-        별점:
-        <Input id="rating" type="number" min="1" max="5" value={rating} onChange={(e) => setRating(e.target.value)} />
-      </Label>
-      <br />
-      <Label htmlFor="source">
-        선물 출처:
-        <Input id="source" type="text" value={source} onChange={(e) => setSource(e.target.value)} />
-      </Label>
-      <br />
-      <Button type="submit">리뷰 작성 완료</Button>
+        </select>
+      </Section>
+
+      <Section>
+        <Label>사진 선택</Label>
+        <Input type="file" multiple onChange={handlePhotoChange} />
+      </Section>
+      <Button type="submit">Submit Review</Button>
     </Form>
   );
 }
 
 const Form = styled.form`
+  margin: 20rem auto;
   display: flex;
   flex-direction: column;
   max-width: 600px;
-  margin: 0 auto;
   padding: 20px;
+  background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   background-color: #f9f9f9;
 `;
-
+const Section = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem 0;
+`;
 const Label = styled.label`
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   font-weight: bold;
 `;
 
@@ -152,26 +154,24 @@ const Input = styled.input`
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 16px;
+  width: 500px;
 `;
 
-const Textarea = styled.textarea`
-  padding: 10px;
+const TextArea = styled.textarea`
+  width: 500px;
+  padding: 20px;
   margin-bottom: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 16px;
-`;
-
-const Select = styled.select`
-  padding: 10px;
-  margin-bottom: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  font-size: 16px;
+  resize: vertical;
 `;
 
 const Button = styled.button`
   padding: 10px 20px;
+  font-size: 16px;
   background-color: #007bff;
   color: white;
   border: none;

@@ -6,7 +6,7 @@ import PostDetailUI from './PostDetail.presenter';
 
 // const profileImage = 'http://via.placeholder.com/90x90.png' && '';
 
-export default function Review() {
+export default function PostDetail() {
   // const { reviewId } = useParams();
   const reviewId = 18;
   console.log('아이디!', reviewId);

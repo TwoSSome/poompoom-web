@@ -16,11 +16,14 @@ import { ReactComponent as D100 } from '../../assets/D100.svg';
 import { ReactComponent as Gift } from '../../assets/Gift.svg';
 import { ReactComponent as Group } from '../../assets/Group.svg';
 import { ReactComponent as Lose } from '../../assets/Lose.svg';
-import { ReactComponent as Mains } from '../../assets/Main.svg';
+// import { ReactComponent as Mains } from '../../assets/Main.svg';
 import { ReactComponent as One } from '../../assets/One.svg';
 import { ReactComponent as Tre } from '../../assets/Tre.svg';
 import { ReactComponent as Two } from '../../assets/Two.svg';
 import { ReactComponent as Vector } from '../../assets/Vector.svg';
+import { ReactComponent as Calender1 } from '../../assets/Component 1 (4).svg';
+
+import { ReactComponent as Components } from '../../assets/Component 1 (1).svg';
 
 export default function HomePage() {
   const [recommendations, setRecommendations] = useState([]);
@@ -55,9 +58,7 @@ export default function HomePage() {
   return (
     <Wrapper>
       <ProfileSection>
-        <MainBox>
-          <MainSvg />
-        </MainBox>
+        <Components />
       </ProfileSection>
       <SearchSection>
         <KeywordBox>
@@ -97,6 +98,9 @@ export default function HomePage() {
             </CategoryWrapper>
           </CategoryList>
         </CategoryBox>
+        <CalenderBox>
+          <Calender1 />
+        </CalenderBox>
       </SearchSection>
       <MoveButton type="button" onClick={handleOnClick('/review')}>
         리뷰글 페이지로
@@ -129,6 +133,14 @@ export default function HomePage() {
     </Wrapper>
   );
 }
+
+// const MainSvg = styled(Mains)`
+//   width: 100%;
+//   height: 100%;
+//   object-fit: cover;
+// `;
+
+const CalenderBox = styled.div``;
 const CategoryWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -185,7 +197,6 @@ const Wrapper = styled.main`
 const ProfileSection = styled.section`
   width: 100%;
   margin-top: 5rem;
-  background-color: #ffeaea;
   border-radius: 20px;
   overflow: hidden;
 `;
@@ -330,12 +341,9 @@ const ButtonBox = styled.div`
 const UpIcon = styled(FontAwesomeIcon)`
   font-size: 24px;
 `;
-const MainBox = styled.div`
-  width: 80%;
-  margin: 0 auto;
-`;
-const MainSvg = styled(Mains)`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-`;
+
+// const MainSvg = styled(Mains)`
+//   width: 100%;
+//   height: 100%;
+//   object-fit: cover;
+// `;

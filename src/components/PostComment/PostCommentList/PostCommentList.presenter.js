@@ -1,4 +1,5 @@
 import * as S from './PostCommentList.styles';
+import { ReactComponent as ProfileIcon } from '../../../assets/Vector (6).svg';
 
 export default function PostCommentListUI({ comments, convertDateArrayToDate, loader }) {
   return (
@@ -6,7 +7,9 @@ export default function PostCommentListUI({ comments, convertDateArrayToDate, lo
       {comments.map((comment, index) => (
         // eslint-disable-next-line react/no-array-index-key
         <S.CommentBox ref={comments.length === index + 1 ? loader : null} key={`${comment.commentId}-${index}`}>
-          <S.Profile />
+          <S.Profile>
+            <ProfileIcon />
+          </S.Profile>
           <S.Id> 사용자 ID {comment.memberId}</S.Id>
           <S.CommentBody>{comment.body}</S.CommentBody>
           <S.CommentDate>작성: {convertDateArrayToDate(comment.createDate).toLocaleString()}</S.CommentDate>

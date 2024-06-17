@@ -58,7 +58,7 @@ export default function ReviewDetailUI({
                   </AuthorImgBox>
                 </AuthorCircleBox>
                 <ID>{`@${nickname}`}</ID>
-                <ID>Lover에게 {reviewType === 'GIVEN' ? '주는 선물' : '받은 선물'}</ID>
+                <Title>Lover에게 {reviewType === 'GIVEN' ? '주는 선물' : '받은 선물'}</Title>
                 {isMyPost ? <p>수정하기</p> : <FollowBtnComponent />}
               </BoardHeader>
               <BoardBody>{body}</BoardBody>
@@ -93,7 +93,6 @@ export default function ReviewDetailUI({
 const DetailSection = styled.section`
   width: 100%;
   margin-top: 3rem;
-  border: 3px solid red;
 `;
 const DetailContent = styled.div`
   width: 80%;
@@ -112,23 +111,44 @@ const PhotoBox = styled.div`
   align-items: center;
   width: 100%;
   height: 80%;
+  position: relative;
+  width: fit-content;
+  margin: auto;
 `;
 const LeftBtn = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
   width: 3rem;
   height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1; /* 사진 위에 버튼이 나타나도록 설정 */
 `;
 const LeftBtnIcon = styled(FontAwesomeIcon)`
   font-size: 24px;
-  color: black;
+  color: white;
   padding: 1rem;
 `;
 const RightBtn = styled.div`
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
   width: 3rem;
   height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1; /* 사진 위에 버튼이 나타나도록 설정 */
 `;
 const RightBtnIcon = styled(FontAwesomeIcon)`
   font-size: 24px;
-  color: black;
+  color: white;
   padding: 1rem;
 `;
 const ImageBox = styled.div`
@@ -200,6 +220,10 @@ const AuthorImg = styled.img`
 const ID = styled.span`
   font-size: 24px;
 `;
+const Title = styled.span`
+  font-size: 24px;
+  color: #0d3f39;
+`;
 const BoardBody = styled.p`
   margin-top: 1rem;
   width: 100%;
@@ -209,6 +233,23 @@ const BoardBody = styled.p`
   line-height: 170%;
   font-size: 24px;
   text-align: start;
+  &::-webkit-scrollbar {
+    width: 12px; /* width of the entire scrollbar */
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f0f0f0; /* color of the track */
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #0d6d63; /* color of the scrollbar handle */
+    border-radius: 20px; /* roundness of the scrollbar handle */
+    border: 3px solid #f0f0f0; /* creates padding around the handle */
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: #094c42; /* color of the scrollbar handle on hover */
+  }
 `;
 const HashtagList = styled.ul`
   margin-top: 2rem;
@@ -246,7 +287,6 @@ const CommentWriteBox = styled.div`
 const CommentSection = styled.section`
   width: 100%;
   margin-top: 5rem;
-  border: 3px solid red;
 `;
 const CommentContent = styled.div`
   width: 80%;

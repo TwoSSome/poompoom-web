@@ -31,10 +31,13 @@ export const Profile = styled.div`
   border-radius: 50%;
   background-color: #f0f0f0;
   border: 5px solid white;
-  box-shadow: 3px 4px 10px rgb(0, 0, 0, 0.11);
+  box-shadow: 3px 4px 10px rgba(0, 0, 0, 0.11);
   position: absolute;
   top: -26px;
   left: -26px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 const getRandomGridColumn = () => {
   return Math.floor(Math.random() * 3) + 1; // 1부터 3까지의 랜덤한 값

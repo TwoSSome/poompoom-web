@@ -1,21 +1,31 @@
 import { styled } from 'styled-components';
+import { useState } from 'react';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 import { ReactComponent as Send } from '../../../assets/Vector (4).svg';
 
 export default function PostCommentWrite() {
-  const onClickSubmit = () => {
-    /* 댓글 등록  */
-  };
+  const [comment, setComment] = useState();
+  const { reviewId } = useParams();
+  const onClickSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await axios.post(`/review/${reviewId}/create`, { body: comment });
 
+      console.log('응답', response);
+    } catch (error) {
+      console.log('에러', error);
+    }
+  };
   return (
     <Container>
-      <CommentBox placeholder="댓글을 입력하세요." />
+      <CommentBox placeholder="댓글을 입력하세요." onChange={(e) => setComment(e.target.value)} />
       <SubmitBtn onClick={onClickSubmit}>
         <SendIcon />
       </SubmitBtn>
     </Container>
   );
 }
-
 const Container = styled.div`
   display: flex;
   flex-direction: row;

@@ -46,8 +46,31 @@ const Wrapper = styled.div`
   gap: 50px;
   flex: 7;
   flex-wrap: nowrap;
-  overflow-x: scroll;
+  overflow-x: auto; /* 스크롤이 필요할 때만 표시 */
+  scrollbar-gutter: stable; /* 스크롤바가 없어질 때 UI가 튀지 않게 */
   cursor: url(${Cursor}), auto; /* SVG 커서 설정 */
+  background-color: rgba(212, 175, 175, 0.74);
+  box-shadow:
+    0 6px 8px rgba(178, 153, 153, 0.74),
+    0 0 8px rgba(255, 255, 255, 0.92) inset;
+  border-radius: 12px;
+
+  /* 기본적으로 스크롤바 숨김 */
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: transparent;
+    border-radius: 6px;
+  }
+
+  &:hover::-webkit-scrollbar-thumb,
+  &.hover-scroll::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.3);
+  }
 `;
 const NoFollowParagraph = styled.p`
   font-size: 30px;

@@ -16,7 +16,7 @@ export default function ReviewPostAuthorUI({
     <Wrapper>
       <AuthorProfile isContentHovered={isContentHovered} profilePhoto={profilePhoto} navigatePath={navigatePath} />
       <AuthorInfo>
-        <Nickname to="/profile">{`@${nickname}`}</Nickname>
+        <Nickname to="/profile">{`${nickname}`}</Nickname>
         <AdditionalInfo>
           <ReviewType>{reviewType === 'GIVEN' ? '준 선물' : '받은 선물'}</ReviewType>
           {nickname !== currentUser?.nickname && (
@@ -49,7 +49,7 @@ const Nickname = styled(Link)`
   font-family: 'Oleo Script Swash Caps';
   font-style: normal;
   font-weight: 400;
-  font-size: 24px;
+  font-size: 20px;
   text-decoration: none;
   font-family: 'YEONGJUPunggiGinsengTTF';
 `;
@@ -61,5 +61,5 @@ const AdditionalInfo = styled.div`
 `;
 const ReviewType = styled.strong`
   color: #0d3f39;
-  font-size: 14px;
+  font-size: 12px;
 `;

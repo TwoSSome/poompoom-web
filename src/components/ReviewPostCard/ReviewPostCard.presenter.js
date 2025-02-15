@@ -49,11 +49,13 @@ const Wrapper = styled.div`
   width: 220px;
   transform: ${({ isContentHovered }) => (isContentHovered ? 'scale(1.1)' : 'scale(1)')};
   transition: transform 0.3s ease-in-out;
+  margin-left: 30px;
 `;
 const ReviewPostContent = styled.div`
   position: relative;
   width: 220px;
   height: 290px;
+  margin-top: 10px;
 `;
 const HashtagsContainer = styled.div`
   position: absolute;

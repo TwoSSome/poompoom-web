@@ -66,13 +66,22 @@ const Wrapper = styled.div`
 const PostFilterContainer = styled.div`
   width: 80%;
   margin: 0 auto;
+  padding: 1% 5%;
   min-width: 1028px;
-
   position: sticky;
   top: 15vh;
-  z-index: 6; /* 헤더와 함께 보이도록 z-index 조정 */
-  background-color: transparent;
-  transition: top 0.3s ease-in-out; /* 부드러운 이동을 위한 transition 속성 추가 */
+  z-index: 6;
+  border-radius: 0 0 12px 12px;
+  backdrop-filter: blur(7px);
+  background-color: rgba(255, 255, 255, 0.35);
+  box-shadow:
+    0 6px 12px rgba(255, 255, 255, 0.63),
+    0 0 8px rgba(255, 255, 255, 0.25) inset;
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    background-color: rgba(244, 244, 244, 0.78);
+  }
 `;
 
 const Title = styled.h3`
@@ -80,9 +89,10 @@ const Title = styled.h3`
   font-family: 'Shrikhand';
   font-style: italic;
   font-weight: 400;
-  font-size: 24px;
+  font-size: 30px;
   line-height: 1.4;
   color: #0e5649;
+  margin: 30px 0;
 `;
 const LatestSection = styled.section`
   margin: 0 auto;

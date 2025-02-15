@@ -24,7 +24,8 @@ const AuthorImgBox = styled.div`
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  border: 5px solid #ddd;
+  border: 5px solid rgba(255, 255, 255, 0.81);
+  box-shadow: 0 3px 6px rgba(69, 63, 63, 0.43);
   overflow: hidden;
   cursor: pointer;
 `;

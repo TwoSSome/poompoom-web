@@ -14,7 +14,7 @@ export default function SearchGalleryUI({ searchPosts }) {
 const Wrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 20px
+  gap: 20px;
   margin-top: 28px;
   padding-left: 20px;
 `;

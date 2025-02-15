@@ -14,8 +14,6 @@ import Event from './Section/Event';
 export default function Sidebar({
   isOpen,
   toggleSidebar,
-  posts,
-  logs,
   events,
   selectedEvent,
   handleCloseDetailModal,
@@ -24,7 +22,8 @@ export default function Sidebar({
 }) {
   const [isAddDatePlan, setAddDatePlan] = useState(false);
   const { isOpen: isModalOpen, closeModal } = useModal();
-
+  const posts = {};
+  const logs = {};
   console.log('모달', isModalOpen);
 
   console.log('isoepn', isOpen);

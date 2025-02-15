@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import EventDetailModal from '../../CalendarView/EventDetailModal';
 import { Button, Container, Section, SectionTitle, SectionWrapper } from '../Style';
-
 // 일정 날짜 포맷 함수
 const formatEventDate = (startDate, endDate) => {
   const start = new Date(startDate);

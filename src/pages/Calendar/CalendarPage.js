@@ -6,14 +6,12 @@ import DatePlanModal from './components/Modal/DatePlanModal';
 
 export default function CalendarPage() {
   const [isSidebarOpen, setSidebarOpen] = useState(true);
-  const [posts, setPosts] = useState({}); // 게시글 데이터 {eventId: [posts]}
-  const [logs, setLogs] = useState({}); // 로그 데이터
-  const [events, setEvents] = useState([]); // 이벤트 데이터를 배열로 관리
   const [selectedEvent, setSelectedEvent] = useState(null); // 선택된 이벤트
   const [isPostModalOpen, setIsPostModalOpen] = useState(false);
   const [isLogModalOpen, setIsLogModalOpen] = useState(false);
   const [ClickedDate, setClickedDate] = useState(null);
 
+  console.log('selectedEvent:', ClickedDate);
   const handleEventClick = (event, setDate) => {
     setSelectedEvent(event); // 선택된 이벤트 설정
     if (setDate) setClickedDate(setDate);
@@ -24,33 +22,40 @@ export default function CalendarPage() {
     setClickedDate(null);
   };
 
-  const handlePostSubmit = (post) => {
-    if (!selectedEvent || !selectedEvent.id) return;
-
-    if (post.type === 'plan') {
-      setPosts((prevPosts) => ({
-        ...prevPosts,
-        [selectedEvent.id]: [...(prevPosts[selectedEvent.id] || []), post].sort((a, b) =>
-          a.title.localeCompare(b.title),
-        ),
-      }));
-    } else {
-      setLogs((prevPosts) => ({
-        ...prevPosts,
-        [selectedEvent.id]: [...(prevPosts[selectedEvent.id] || []), post].sort((a, b) =>
-          a.title.localeCompare(b.title),
-        ),
-      }));
-    }
-
-    setIsPostModalOpen(false); // 게시글 작성 모달 닫기
+  /*
+  const logData = {
+    req: {
+      calendarScheduleId: 12,
+      title: 'string',
+      body: 'string',
+    },
+    photos: [],
   };
+
+  const planData = {
+    calendarScheduleId: 12,
+    body: 'string',
+    localDate: '2025-02-14',
+  };
+  */
+  // Api.createLog(logData);
+  // Api.createPlan(planData);
+  // Api.createSchedule(eventData);
+  // Api.getSchedule();
+  // Api.getLog(); 12로 연결
+  // Api.getPlan();
+
+  // Api.getCalendarInfo();
+  // Api.getCalendarTag();
+  // Api.getPoompoomLog();
 
   const toggleSidebar = () => {
     setSidebarOpen((prev) => !prev);
   };
 
-  console.log('events:', events);
+  const posts = [];
+  const logs = [];
+  const events = [];
 
   return (
     <Container>
@@ -66,19 +71,10 @@ export default function CalendarPage() {
         handleEventClick={handleEventClick}
       />
       <CalendarView
-        posts={posts}
-        logs={logs}
-        events={events}
-        setEvents={setEvents}
-        selectedEvent={selectedEvent}
         isPostModalOpen={isPostModalOpen}
         setIsPostModalOpen={setIsPostModalOpen}
         isLogModalOpen={isLogModalOpen}
         setIsLogModalOpen={setIsLogModalOpen}
-        handleEventClick={handleEventClick}
-        ClickedDate={ClickedDate}
-        handleCloseDetailModal={handleCloseDetailModal}
-        handlePostSubmit={handlePostSubmit}
       />
       <DatePlanModal />
     </Container>
